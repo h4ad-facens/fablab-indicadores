@@ -1,0 +1,92 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">{{ isUpdate ? 'Atualizar' : 'Criar' }} um aluno</h4>
+            <p class="card-category">A seguir, você pode {{ isUpdate ? 'atualizar' : 'criar' }} um aluno.</p>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="formGroup"
+                  *ngIf="formGroup.customValidateErrors | async as errors" novalidate>
+
+              <div class="d-flex flex-column">
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="name" matInput placeholder="Nome (*)">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.name?.length">
+                    {{ errors.name[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="email" matInput placeholder="E-mail (*)" type="email">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.email?.length">
+                    {{ errors.email[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="phone" matInput placeholder="Telefone" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.phone?.length">
+                    {{ errors.phone[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="age" matInput placeholder="Idade" type="number">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.age?.length">
+                    {{ errors.age[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="gender" matInput placeholder="Gênero" type="number">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.gender?.length">
+                    {{ errors.gender[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="invoice" matInput placeholder="Recibo" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.invoice?.length">
+                    {{ errors.invoice[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="month" matInput placeholder="Mês" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.month?.length">
+                    {{ errors.month[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="type" matInput placeholder="Tipo" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.type?.length">
+                    {{ errors.type[0] }}
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="col d-flex flex-column flex-sm-row flex-sm-grow-0 mt-5">
+                <button class="btn btn-outline-secondary" routerLink="/dashboard/students" type="button">Voltar</button>
+                <button [disabled]="!formGroup.valid"
+                        class="btn btn-admin-danger ml-sm-auto">{{ isUpdate ? 'Atualizar' : 'Criar' }}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

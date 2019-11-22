@@ -1,0 +1,172 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+      <div class="row">
+          <div class="col-md-4">
+              <div class="card card-chart">
+                  <div class="card-header card-header-success">
+                      <div class="ct-chart" id="dailySalesChart">
+
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <h4 class="card-title">Receita Total</h4>
+                      <p class="card-category">As receitas totais desse ano.</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                          <i class="material-icons">access_time</i> atualizado à 4 minutos.
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-chart">
+                  <div class="card-header card-header-warning">
+                      <div class="ct-chart" id="websiteViewsChart">
+
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <h4 class="card-title">Nº de alunos impactados</h4>
+                      <p class="card-category">A quantidade de alunos impactados pelo Fab Lab.</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                          <i class="material-icons">access_time</i> ultimo aluno impactado há 2 dias atrás.
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-chart">
+                  <div class="card-header card-header-danger">
+                      <div class="ct-chart" id="completedTasksChart">
+
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <h4 class="card-title">Projetos Documentados</h4>
+                      <p class="card-category">A quantidade de projetos submetidos que foram documentados.</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">
+                          <i class="material-icons">access_time</i> ultimo projeto documentado há 2 dias atrás.
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Indicadores</h4>
+            <p class="card-category">A seguir, você pode ver os indicadores do Fab Lab</p>
+          </div>
+          <div class="card-body">
+            <a [disabled]="!dataSource" mat-stroked-button color="warn" #allData
+               (click)="exportDataToJson(allData, true)">Exportar todos os itens</a>
+
+            <div class="loading-shade-container mat-elevation-z8">
+              <div class="loading-shade" *ngIf="isLoadingResults">
+                <mat-spinner></mat-spinner>
+              </div>
+
+              <table mat-table matSort [dataSource]="dataSource">
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Indicador</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="goal">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Meta</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.goal }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="january">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Janeiro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.january }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="february">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Fevereiro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.february }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="march">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Fevereiro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.february }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="april">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Abril</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.april }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="may">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Maio</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.may }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="june">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Fevereiro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.february }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="july">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Julho</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.july }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="august">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Agosto</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.august }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="september">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Setembro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.september }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="october">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Outubro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.october }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="november">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Novembro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.november }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="december">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Dezembro</th>
+                  <td mat-cell *matCellDef="let element"> {{ element.december }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef> Ações</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button class="btn btn-outline-warning mx-2">
+                      Atualizar
+                    </button>
+                    <button class="btn btn-outline-danger mx-2">
+                      Deletar
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

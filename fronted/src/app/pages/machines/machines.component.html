@@ -1,0 +1,172 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">{{ isUpdate ? 'Atualizar' : 'Criar' }} uma máquina</h4>
+            <p class="card-category">A seguir, você pode {{ isUpdate ? 'atualizar' : 'criar' }} uma máquina.</p>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="formGroup"
+                  *ngIf="formGroup.customValidateErrors | async as errors" novalidate>
+
+              <div class="d-flex flex-column">
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="name" matInput placeholder="Nome (*)">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.name?.length">
+                    {{ errors.name[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="last_name" matInput placeholder="Sobrenome">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.last_name?.length">
+                    {{ errors.email[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="email" matInput placeholder="E-mail (*)" type="email">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.email?.length">
+                    {{ errors.email[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="phone" matInput placeholder="Telefone" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.phone?.length">
+                    {{ errors.phone[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="address" matInput placeholder="Endereço" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.address?.length">
+                    {{ errors.address[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="age" matInput placeholder="Idade" type="number">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.age?.length">
+                    {{ errors.age[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="cad_software" matInput placeholder="Cad Software" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.cad_software?.length">
+                    {{ errors.cad_software[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="website" matInput placeholder="Url do Website" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.website?.length">
+                    {{ errors.website[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="facebook" matInput placeholder="Url do Facebook" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.facebook?.length">
+                    {{ errors.facebook[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="twitter" matInput placeholder="Url do Twitter" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.twitter?.length">
+                    {{ errors.twitter[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="gender" matInput placeholder="Gênero" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.gender?.length">
+                    {{ errors.gender[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="group" matInput placeholder="Grupo" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.group?.length">
+                    {{ errors.group[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="interest" matInput placeholder="Interesse" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.interest?.length">
+                    {{ errors.interest[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="job" matInput placeholder="Trabalho" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.job?.length">
+                    {{ errors.job[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="projects" matInput placeholder="Projetos" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.projects?.length">
+                    {{ errors.projects[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="signature" matInput placeholder="Assinatura" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.signature?.length">
+                    {{ errors.signature[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="tags" matInput placeholder="Tags" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.tags?.length">
+                    {{ errors.tags[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="validated_training" matInput placeholder="Treino válidado" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.validated_training?.length">
+                    {{ errors.validated_training[0] }}
+                  </mat-error>
+                </div>
+              </div>
+
+              <div class="col d-flex flex-column flex-sm-row flex-sm-grow-0 mt-5">
+                <button class="btn btn-outline-secondary" routerLink="/dashboard/machines" type="button">Voltar</button>
+                <button [disabled]="!formGroup.valid"
+                        class="btn btn-admin-danger ml-sm-auto">{{ isUpdate ? 'Atualizar' : 'Criar' }}</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

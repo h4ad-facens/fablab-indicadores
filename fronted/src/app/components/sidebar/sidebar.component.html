@@ -1,0 +1,31 @@
+<div class="logo">
+    <a class="simple-text app-name" href="#">
+        <div class="logo-img">
+            <img [src]="icon_name"/>
+        </div>
+        {{ appName }}
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <div *ngIf="isMobileMenu()">
+        <ul class="nav navbar-nav nav-mobile-menu">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">person</i>
+                    <p>
+                        <span class="d-lg-none d-md-block">Perfil</span>
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="nav">
+        <li *ngFor="let menuItem of menuItems" class="{{ menuItem.class }} nav-item" routerLinkActive="active">
+            <a [routerLink]="[menuItem.path]" class="nav-link">
+                <i class="material-icons">{{ menuItem.icon }}</i>
+                <p>{{ menuItem.title }}</p>
+            </a>
+        </li>
+    </ul>
+</div>
