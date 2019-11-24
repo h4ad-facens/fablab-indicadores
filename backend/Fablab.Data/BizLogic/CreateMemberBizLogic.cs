@@ -39,7 +39,14 @@ namespace Fablab.Data.BizLogic
                 Newsletter = inputData.Newsletter,
                 Cad_software = inputData.Cad_software,
                 Invoice_disabled = inputData.Invoice_disabled,
-                Validated_training = inputData.Validated_training
+                Validated_training = inputData.Validated_training,
+                Number_Invoices = inputData.Number_Invoices,
+                Ecocience = inputData.Ecocience,
+                Organization = inputData.Organization,
+                Organization_Address = inputData.Organization_Address,
+                Aux_Group = inputData.Aux_Group,
+                Aux_Training = inputData.Aux_Training,
+                Aux_Group_Training = inputData.Aux_Group_Training
             };
             
             _context.Add(item);

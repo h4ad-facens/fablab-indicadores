@@ -24,5 +24,12 @@ namespace Fablab.Models.Entities
         public string Projects { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
+        public int Number_Invoices { get; set; }
+        public string Ecocience { get; set; }
+        public string Organization { get; set; }
+        public string Organization_Address { get; set; }
+        public int Aux_Group { get; set; }
+        public int Aux_Training { get; set; }
+        public int Aux_Group_Training { get; set; }
     }
 }

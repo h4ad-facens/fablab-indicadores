@@ -111,6 +111,13 @@ namespace Fablab.API.Controllers
             member.Cad_software = dto.Cad_software ?? member.Cad_software;
             member.Invoice_disabled = dto.Invoice_disabled ?? member.Invoice_disabled;
             member.Validated_training = dto.Validated_training ?? member.Validated_training;
+            member.Number_Invoices = dto.Number_Invoices ?? member.Number_Invoices;
+            member.Ecocience = dto.Ecocience ?? member.Ecocience;
+            member.Organization = dto.Organization ?? member.Organization;
+            member.Organization_Address = dto.Organization_Address ?? member.Organization_Address;
+            member.Aux_Group = dto.Aux_Group ?? member.Aux_Group;
+            member.Aux_Training = dto.Aux_Training ?? member.Aux_Training;
+            member.Aux_Group_Training = dto.Aux_Group_Training ?? member.Aux_Group_Training;
             
             service.UpdateAndSave(member);
             
