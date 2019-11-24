@@ -10,6 +10,7 @@ import { TokenProxy } from '../../models/proxys/token.proxy';
 import { HttpAsyncService } from '../../services/http-async/http-async.service';
 import { JqueryHelper } from '../../utils/jquery';
 import { Keys } from '../../utils/keys';
+import { DialogLoadingService } from 'app/components/dialog-loading/dialog.loading.service';
 
 //#endregion
 
@@ -37,6 +38,7 @@ export class LoginComponent {
   constructor(
     private readonly router: Router,
     private readonly http: HttpAsyncService,
+    private readonly loading: DialogLoadingService,
   ) {}
 
   //#endregion
@@ -92,7 +94,11 @@ export class LoginComponent {
     const { value: email } = this.emailFormControl;
     const { value: password } = this.passwordFormControl;
 
+    this.loading.open();
+
     const { error, success } = await this.http.post<TokenProxy>('/Users/Auth', { email, password });
+
+    this.loading.close();
 
     if (error)
       return JqueryHelper.error(error.error && error.error.message || error.message);

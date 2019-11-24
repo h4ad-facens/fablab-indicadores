@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login.component';
+import { DialogLoadingModule } from 'app/components/dialog-loading/dialog.loading.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoginComponent } from './login.component';
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
+    DialogLoadingModule,
   ]
 })
 

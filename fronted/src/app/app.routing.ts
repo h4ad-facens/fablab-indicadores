@@ -2,6 +2,7 @@ import { CommonModule, } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
@@ -15,6 +16,8 @@ const routes: Routes = [
         path: '',
         loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule' },
     ],
+    canActivate: [AuthGuard],
+    data: { redirectIfLogged: true, },
   },
   {
     path: 'login',

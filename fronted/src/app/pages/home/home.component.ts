@@ -49,7 +49,7 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
     super();
 
     this.displayedColumns = [
-      'name', 'goal', 'january', 'february', 'march', 'april', 'june', 'july', 'august', 'september', 'november', 'december'
+      'name', 'goal', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'
     ];
   }
 
@@ -61,9 +61,11 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
    * Método que é executado ao iniciar o componente
    */
   public async ngOnInit(): Promise<void> {
-    try {
-      this.dataSource = new MatTableDataSource<IndicatorsProxy>([]);
-    } catch {
+    const { success } = await this.http.get('/Indicators');
+
+    if(success) {
+      this.dataSource = new MatTableDataSource<IndicatorsProxy>(success);
+    } else {
       JqueryHelper.notify('add_alert', 'Ocorreu um erro ao buscar os indicadores, por favor, tente novamente!', 'danger');
 
       this.dataSource = new MatTableDataSource<IndicatorsProxy>([]);
