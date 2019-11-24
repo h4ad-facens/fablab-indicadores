@@ -172,7 +172,7 @@ namespace Fablab.API
         /// </summary>
         protected void ConfigureDB(IServiceCollection services)
         {
-            var connection = $"Server=db;Database=master;User=sa;Password=!!test!!fablab!!;";
+            var connection = $"Server=172.23.0.1;Database=master;User=sa;Password=!!test!!fablab!!;";
 
             // This line uses 'UseSqlServer' in the 'options' parameter
             // with the connection string defined above.
