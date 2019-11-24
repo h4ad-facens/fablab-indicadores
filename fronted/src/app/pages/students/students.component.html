@@ -46,7 +46,7 @@
                 </div>
                 <div class="col">
                   <mat-form-field>
-                    <input formControlName="gender" matInput placeholder="Gênero" type="number">
+                    <input formControlName="gender" matInput placeholder="Gênero" type="text">
                   </mat-form-field>
                   <mat-error *ngIf="errors.gender?.length">
                     {{ errors.gender[0] }}
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col">
                   <mat-form-field>
-                    <input formControlName="invoice" matInput placeholder="Recibo" type="text">
+                    <input formControlName="invoice" matInput placeholder="Recibo" type="number">
                   </mat-form-field>
                   <mat-error *ngIf="errors.invoice?.length">
                     {{ errors.invoice[0] }}

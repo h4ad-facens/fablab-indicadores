@@ -67,10 +67,10 @@ export class BaseStudentsComponent {
     const keys = Object.keys(entity);
 
     for (const key of keys) {
-      if (!entity[key] && !setUndefined)
+      if (entity[key] === undefined && !setUndefined)
         continue;
 
-      payload[key] = entity[key] || undefined;
+      payload[key] = entity[key];
     }
 
     return payload;

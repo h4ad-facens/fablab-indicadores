@@ -83,9 +83,9 @@ export class UpdateStudentsComponent extends BaseStudentsComponent {
    * Método executado ao enviar o comando de Submit no formulário
    */
   public async onSubmit(): Promise<void> {
-    const machinePayload = this.getCleanEntity(this.formGroup.value);
+    const studentPayload = this.getCleanEntity(this.formGroup.value);
 
-    const { error } = await this.http.put('/Students', machinePayload);
+    const { error } = await this.http.put(`/Students`, studentPayload);
 
     if (error)
       return JqueryHelper.error(error.error && error.error.message || error.message);
