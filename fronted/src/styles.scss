@@ -103,3 +103,7 @@ table {
    */
   animation-delay: .4s;
 }
+
+.modal-dialog {
+  max-width: unset !important;
+}

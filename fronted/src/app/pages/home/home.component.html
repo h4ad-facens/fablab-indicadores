@@ -2,63 +2,6 @@
   <div class="container-fluid">
 
       <div class="row">
-          <div class="col-md-4">
-              <div class="card card-chart">
-                  <div class="card-header card-header-success">
-                      <div class="ct-chart" id="dailySalesChart">
-
-                      </div>
-                  </div>
-                  <div class="card-body">
-                      <h4 class="card-title">Receita Total</h4>
-                      <p class="card-category">As receitas totais desse ano.</p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> atualizado à 4 minutos.
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4">
-              <div class="card card-chart">
-                  <div class="card-header card-header-warning">
-                      <div class="ct-chart" id="websiteViewsChart">
-
-                      </div>
-                  </div>
-                  <div class="card-body">
-                      <h4 class="card-title">Nº de alunos impactados</h4>
-                      <p class="card-category">A quantidade de alunos impactados pelo Fab Lab.</p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> ultimo aluno impactado há 2 dias atrás.
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-4">
-              <div class="card card-chart">
-                  <div class="card-header card-header-danger">
-                      <div class="ct-chart" id="completedTasksChart">
-
-                      </div>
-                  </div>
-                  <div class="card-body">
-                      <h4 class="card-title">Projetos Documentados</h4>
-                      <p class="card-category">A quantidade de projetos submetidos que foram documentados.</p>
-                  </div>
-                  <div class="card-footer">
-                      <div class="stats">
-                          <i class="material-icons">access_time</i> ultimo projeto documentado há 2 dias atrás.
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
@@ -66,8 +9,13 @@
             <p class="card-category">A seguir, você pode ver os indicadores do Fab Lab</p>
           </div>
           <div class="card-body">
-            <a [disabled]="!dataSource" mat-stroked-button color="warn" #allData
-               (click)="exportDataToJson(allData, true)">Exportar todos os itens</a>
+            <input #inputFileStudent (change)="importStudentsToJson($event)" hidden="true" type="file" accept=".xlsx" placeholder="Importar Alunos Impactados" multiple="false" />
+            <a mat-stroked-button color="warn" (click)="inputFileStudent.click()">Importar alunos impactados</a>
+
+            <input #inputFileMember (change)="importMembersToJson($event)" hidden="true" type="file" accept=".xlsx" placeholder="Importar Membros" multiple="false" />
+            <a mat-stroked-button color="warn" (click)="inputFileMember.click()">Importar membros</a>
+
+            <a [disabled]="!dataSource" mat-stroked-button color="warn" #allData (click)="exportDataToJson(allData, true)">Exportar todos os itens</a>
 
             <div class="loading-shade-container mat-elevation-z8">
               <div class="loading-shade" *ngIf="isLoadingResults">
@@ -166,6 +114,46 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="studentDataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dataModalLabel">Importar dados do Excel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-student-source *ngIf="importedStudentData" [content]="importedStudentData"></app-student-source>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" (click)="saveStudentsData()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="membersDataModal" tabindex="-1" role="dialog" aria-labelledby="memberDataModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="memberDataModalLabel">Importar dados do Excel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-member-source *ngIf="importedMembersData" [content]="importedMembersData"></app-member-source>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" (click)="saveMembersData()">Salvar</button>
       </div>
     </div>
   </div>

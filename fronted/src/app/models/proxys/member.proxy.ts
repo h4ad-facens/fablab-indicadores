@@ -1,0 +1,30 @@
+export interface MemberProxy {
+  name: string;
+  last_name: string;
+  email: string;
+  newsletter: string;
+  gender: string;
+  age: number;
+  address: string;
+  phone: string;
+  website: string;
+  job: string;
+  interest: string;
+  cad_software: string;
+  group: string;
+  signature: string;
+  validated_training: string;
+  tags: string;
+  invoice_disabled: string;
+  projects: string;
+  facebook: string;
+  twitter: string;
+  id: number;
+  number_invoices: number;
+  ecocience: string;
+  organization: string;
+  organization_address: string;
+  aux_group: number;
+  aux_training: number;
+  aux_group_training: number;
+}

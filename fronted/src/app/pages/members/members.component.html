@@ -4,8 +4,8 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title ">{{ isUpdate ? 'Atualizar' : 'Criar' }} uma máquina</h4>
-            <p class="card-category">A seguir, você pode {{ isUpdate ? 'atualizar' : 'criar' }} uma máquina.</p>
+            <h4 class="card-title ">{{ isUpdate ? 'Atualizar' : 'Criar' }} um membro</h4>
+            <p class="card-category">A seguir, você pode {{ isUpdate ? 'atualizar' : 'criar' }} um membro.</p>
           </div>
           <div class="card-body">
             <form (ngSubmit)="onSubmit()" [formGroup]="formGroup"
@@ -150,16 +150,80 @@
                 </div>
                 <div class="col">
                   <mat-form-field>
-                    <input formControlName="validated_training" matInput placeholder="Treino válidado" type="text">
+                    <input formControlName="validated_training" matInput placeholder="Treinamentos válidados" type="text">
                   </mat-form-field>
                   <mat-error *ngIf="errors.validated_training?.length">
                     {{ errors.validated_training[0] }}
                   </mat-error>
                 </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="number_invoices" matInput placeholder="Número de faturas" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.number_invoices?.length">
+                    {{ errors.number_invoices[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="invoice_disabled" matInput placeholder="Fatura desativada" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.invoice_disabled?.length">
+                    {{ errors.invoice_disabled[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="ecocience" matInput placeholder="Ecociência" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.ecocience?.length">
+                    {{ errors.ecocience[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="organization" matInput placeholder="Organização" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.organization?.length">
+                    {{ errors.organization[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="organization_address" matInput placeholder="Endereço da Organização" type="text">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.organization_address?.length">
+                    {{ errors.organization_address[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="aux_group" matInput placeholder="Aux ( Grupo )" type="number">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.aux_group?.length">
+                    {{ errors.aux_group[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="aux_training" matInput placeholder="Aux ( Treinamento )" type="number">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.aux_training?.length">
+                    {{ errors.aux_training[0] }}
+                  </mat-error>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input formControlName="aux_group_training" matInput placeholder="Aux ( Grupo + Treinamento )" type="number">
+                  </mat-form-field>
+                  <mat-error *ngIf="errors.aux_group_training?.length">
+                    {{ errors.aux_group_training[0] }}
+                  </mat-error>
+                </div>
               </div>
 
               <div class="col d-flex flex-column flex-sm-row flex-sm-grow-0 mt-5">
-                <button class="btn btn-outline-secondary" routerLink="/dashboard/machines" type="button">Voltar</button>
+                <button class="btn btn-outline-secondary" routerLink="/dashboard/members" type="button">Voltar</button>
                 <button [disabled]="!formGroup.valid"
                         class="btn btn-admin-danger ml-sm-auto">{{ isUpdate ? 'Atualizar' : 'Criar' }}</button>
               </div>

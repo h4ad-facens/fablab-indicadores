@@ -2,22 +2,23 @@
 
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { DialogLoadingService } from '../../components/dialog-loading/dialog.loading.service';
-import { MachinesEntity } from '../../models/entities/machines.entity';
+import { MemberEntity } from '../../models/entities/member.entity';
 import { APIWrapperSingleProxy } from '../../models/proxys/api-wrapper.proxy';
-import { MachinesProxy } from '../../models/proxys/machines.proxy';
+import { MemberProxy } from '../../models/proxys/member.proxy';
 import { HttpAsyncService } from '../../services/http-async/http-async.service';
 import { JqueryHelper } from '../../utils/jquery';
-import { BaseMachinesComponent } from './base-machines.component';
+import { BaseMembersComponent } from './base-members.component';
 
 //#endregion
 
 //#region Component
 
 @Component({
-  selector: 'app-update-machines',
-  templateUrl: 'machines.component.html',
-  styleUrls: ['./machines.component.scss']
+  selector: 'app-update-member',
+  templateUrl: 'members.component.html',
+  styleUrls: ['./members.component.scss']
 })
 
 //#endregion
@@ -25,7 +26,7 @@ import { BaseMachinesComponent } from './base-machines.component';
 /**
  * A classe que é responsável por atualizar máquinas para o Fablab
  */
-export class UpdateMachinesComponent extends BaseMachinesComponent {
+export class UpdateMembersComponent extends BaseMembersComponent {
 
   //#region Constructor
 
@@ -40,7 +41,7 @@ export class UpdateMachinesComponent extends BaseMachinesComponent {
   ) {
     super();
 
-    this.isUpdate = route.snapshot.paramMap.has('machineId');
+    this.isUpdate = route.snapshot.paramMap.has('memberId');
   }
 
   //#endregion
@@ -52,24 +53,24 @@ export class UpdateMachinesComponent extends BaseMachinesComponent {
    */
   public async ngOnInit(): Promise<void | boolean> {
     if (!this.isUpdate)
-      return await this.router.navigateByUrl('/dashboard/machines');
+      return await this.router.navigateByUrl('/dashboard/members');
 
     this.loading.open();
 
-    const machineId = this.route.snapshot.paramMap.get('machineId');
-    const { error, success } = await this.http.get<APIWrapperSingleProxy<MachinesProxy>>(`/Members/${ machineId }`);
+    const machineId = this.route.snapshot.paramMap.get('memberId');
+    const { error, success } = await this.http.get<APIWrapperSingleProxy<MemberProxy>>(`/Members/${ machineId }`);
 
     this.loading.close();
 
     if (error) {
       JqueryHelper.error(error.error && error.error.message || error.message);
 
-      return await this.router.navigateByUrl('/dashboard/machines');
+      return await this.router.navigateByUrl('/dashboard/members');
     }
 
     const cleaned = this.getCleanEntity(success.results, true);
 
-    this.formGroup = this.formBuilder.group(MachinesEntity, cleaned);
+    this.formGroup = this.formBuilder.group(MemberEntity, cleaned);
   }
 
   //#endregion
@@ -80,16 +81,16 @@ export class UpdateMachinesComponent extends BaseMachinesComponent {
    * Método executado ao enviar o comando de Submit no formulário
    */
   public async onSubmit(): Promise<void> {
-    const machinePayload = this.getCleanEntity(this.formGroup.value);
+    const memberPayload = this.getCleanEntity(this.formGroup.value);
 
-    const { error } = await this.http.put('/Members', machinePayload);
+    const { error } = await this.http.put('/Members', memberPayload);
 
     if (error)
       return JqueryHelper.error(error.error && error.error.message || error.message);
 
     JqueryHelper.success('Operaçao executada com sucesso!');
 
-    await this.router.navigateByUrl('/dashboard/machines');
+    await this.router.navigateByUrl('/dashboard/members');
   }
 
   //#endregion

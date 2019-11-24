@@ -4,17 +4,17 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
-            <h4 class="card-title ">Máquinas cadastradas</h4>
-            <p class="card-category">A seguir, você pode ver todos as máquinas cadastradas</p>
+            <h4 class="card-title">Membros cadastradas</h4>
+            <p class="card-category">A seguir, você pode ver todos os membros cadastradas</p>
           </div>
           <div class="row mx-0">
             <div class="d-flex justify-content-center px-5" style="flex: 1;">
               <mat-form-field class="w-100 align-self-center">
-                <input matInput placeholder="Pesquisar máquinas" #input>
+                <input matInput placeholder="Pesquisar membros" #input>
               </mat-form-field>
             </div>
 
-            <button class="btn btn-outline-success ml-auto mr-4 my-4" routerLink="/dashboard/machines/create">Novo</button>
+            <button class="btn btn-outline-success ml-auto mr-4 my-4" routerLink="/dashboard/members/create">Novo</button>
           </div>
           <div class="card-body">
             <div class="loading-shade-container mat-elevation-z8">
@@ -42,7 +42,7 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef> Ações </th>
                   <td mat-cell *matCellDef="let element">
-                    <button class="btn btn-outline-warning mx-2" [routerLink]="['/dashboard/machines', element.id]">
+                    <button class="btn btn-outline-warning mx-2" [routerLink]="['/dashboard/members', element.id]">
                       Editar
                     </button>
                     <button class="btn btn-outline-danger mx-2" (click)="onClickDelete(element)">

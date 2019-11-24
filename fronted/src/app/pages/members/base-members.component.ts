@@ -2,14 +2,14 @@
 
 import { DynamicFormBuilder, DynamicFormGroup } from 'ngx-dynamic-form-builder';
 
-import { MachinesEntity } from '../../models/entities/machines.entity';
+import { MemberEntity } from '../../models/entities/member.entity';
 
 //#endregion
 
 /**
- * A classe que é responsável por cadastrar e editar as maquinas
+ * A classe que é responsável por cadastrar e editar os membros
  */
-export class BaseMachinesComponent {
+export class BaseMembersComponent {
 
   //#region Constructor
 
@@ -17,7 +17,7 @@ export class BaseMachinesComponent {
    * Construtor padrão
    */
   constructor() {
-    this.formGroup = this.formBuilder.group(MachinesEntity, {
+    this.formGroup = this.formBuilder.group(MemberEntity, {
       name: undefined,
       last_name: undefined,
       email: undefined,
@@ -38,6 +38,13 @@ export class BaseMachinesComponent {
       projects: undefined,
       facebook: undefined,
       twitter: undefined,
+      number_invoices: undefined,
+      ecocience: undefined,
+      organization: undefined,
+      organization_address: undefined,
+      aux_group: undefined,
+      aux_training: undefined,
+      aux_group_training: undefined,
     });
   }
 
@@ -66,7 +73,7 @@ export class BaseMachinesComponent {
   /**
    * Os campos agrupados do formulário
    */
-  public formGroup: DynamicFormGroup<MachinesEntity>;
+  public formGroup: DynamicFormGroup<MemberEntity>;
 
   //#endregion
 
@@ -75,8 +82,8 @@ export class BaseMachinesComponent {
   /**
    * Método que retorna o payload que será usado para enviar as informações para a API
    */
-  public getCleanEntity(entity: MachinesEntity, setUndefined: boolean = false): Partial<MachinesEntity> {
-    const payload: Partial<MachinesEntity> = {};
+  public getCleanEntity(entity: MemberEntity, setUndefined: boolean = false): Partial<MemberEntity> {
+    const payload: Partial<MemberEntity> = {};
     const keys = Object.keys(entity);
 
     for (const key of keys) {

@@ -1,0 +1,150 @@
+<div class="card-body">
+  <div class="loading-shade-container mat-elevation-z8">
+    <div class="loading-shade" *ngIf="isLoadingResults">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <table mat-table matSort [dataSource]="dataSource">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="last_name">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Sobrenome </th>
+        <td mat-cell *matCellDef="let element"> {{ element.last_name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> E-mail </th>
+        <td mat-cell *matCellDef="let element"> {{ element.email }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="newsletter">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Newsletter </th>
+        <td mat-cell *matCellDef="let element"> {{ element.newsletter }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Gênero </th>
+        <td mat-cell *matCellDef="let element"> {{ element.gender }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="age">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Idade </th>
+        <td mat-cell *matCellDef="let element"> {{ element.age }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Endereço </th>
+        <td mat-cell *matCellDef="let element"> {{ element.address }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Telefone </th>
+        <td mat-cell *matCellDef="let element"> {{ element.phone }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="website">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Website </th>
+        <td mat-cell *matCellDef="let element"> {{ element.website }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="job">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Emprego </th>
+        <td mat-cell *matCellDef="let element"> {{ element.job }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="interest">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Interesses </th>
+        <td mat-cell *matCellDef="let element"> {{ element.interest }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cad_software">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> CAD Softwares mastered </th>
+        <td mat-cell *matCellDef="let element"> {{ element.cad_software }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="group">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Grupo </th>
+        <td mat-cell *matCellDef="let element"> {{ element.group }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="signature">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Assinaturas </th>
+        <td mat-cell *matCellDef="let element"> {{ element.signature }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="validated_training">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Treinamentos Válidados </th>
+        <td mat-cell *matCellDef="let element"> {{ element.validated_training }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tags">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Tags </th>
+        <td mat-cell *matCellDef="let element"> {{ element.tags }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="invoice_disabled">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Fatura Desativada </th>
+        <td mat-cell *matCellDef="let element"> {{ element.invoice_disabled }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="projects">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Projetos </th>
+        <td mat-cell *matCellDef="let element"> {{ element.projects }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="facebook">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Facebook </th>
+        <td mat-cell *matCellDef="let element"> {{ element.facebook }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="twitter">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Twitter </th>
+        <td mat-cell *matCellDef="let element"> {{ element.twitter }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="number_invoices">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Número de Faturas </th>
+        <td mat-cell *matCellDef="let element"> {{ element.number_invoices }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ecocience">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Ecociência </th>
+        <td mat-cell *matCellDef="let element"> {{ element.ecocience }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="organization">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Organização </th>
+        <td mat-cell *matCellDef="let element"> {{ element.organization }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="organization_address">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Endereço da Organização </th>
+        <td mat-cell *matCellDef="let element"> {{ element.organization_address }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="aux_group">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Aux ( Grupo ) </th>
+        <td mat-cell *matCellDef="let element"> {{ element.aux_group }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="aux_training">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Aux ( Treinamento ) </th>
+        <td mat-cell *matCellDef="let element"> {{ element.aux_training }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="aux_group_training">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Aux ( Grupo + Treinamento ) </th>
+        <td mat-cell *matCellDef="let element"> {{ element.aux_group_training }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

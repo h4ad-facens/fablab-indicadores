@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { DialogLoadingService } from '../../components/dialog-loading/dialog.loading.service';
 
 import { APIWrapperProxy } from '../../models/proxys/api-wrapper.proxy';
-import { MachinesProxy } from '../../models/proxys/machines.proxy';
+import { MemberProxy } from '../../models/proxys/member.proxy';
 import { HttpAsyncService } from '../../services/http-async/http-async.service';
 import { PaginationShared } from '../../shared/pagination/pagination.shared';
 import { MatTableDataSource } from '@angular/material';
@@ -15,9 +15,9 @@ import { JqueryHelper } from '../../utils/jquery';
 //#region Component
 
 @Component({
-  selector: 'app-list-machines',
-  templateUrl: 'list-machines.component.html',
-  styleUrls: ['./list-machines.component.scss'],
+  selector: 'app-list-members',
+  templateUrl: 'list-members.component.html',
+  styleUrls: ['./list-members.component.scss'],
 })
 
 //#endregion
@@ -25,7 +25,7 @@ import { JqueryHelper } from '../../utils/jquery';
 /**
  * A classe que representa as informações da paǵina que lista as maquinas
  */
-export class ListMachinesComponent extends PaginationShared<MachinesProxy> {
+export class ListMembersComponent extends PaginationShared<MemberProxy> {
 
   //#region Constructor
 
@@ -51,10 +51,10 @@ export class ListMachinesComponent extends PaginationShared<MachinesProxy> {
    * Método que é executado quando esse componente é iniciado
    */
   public async ngOnInit(): Promise<void> {
-    const { error, success } = await this.http.get<APIWrapperProxy<MachinesProxy>>('/Members');
+    const { error, success } = await this.http.get<APIWrapperProxy<MemberProxy>>('/Members');
 
     if (success && Array.isArray(success.results)) {
-      this.dataSource = new MatTableDataSource<MachinesProxy>(success.results);
+      this.dataSource = new MatTableDataSource<MemberProxy>(success.results);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     } else {
@@ -71,7 +71,7 @@ export class ListMachinesComponent extends PaginationShared<MachinesProxy> {
   /**
    * Método que remove um item do banco de dados
    */
-  public async onClickDelete(item: MachinesProxy): Promise<void> {
+  public async onClickDelete(item: MemberProxy): Promise<void> {
     this.loading.open();
 
     const { error } = await this.http.delete(`/Members/${ item.id }`);

@@ -3,14 +3,14 @@
 import { IsString, IsNumber, IsOptional, IsEmail, IsUrl, IsDefined } from 'class-validator';
 
 import { DefaultValidationMessages } from '../enums/default-validation-messages';
-import { MachinesProxy } from '../proxys/machines.proxy';
+import { MemberProxy } from '../proxys/member.proxy';
 
 //#endregion
 
 /**
  * A classe que representa a entidade de máquinas
  */
-export class MachinesEntity implements MachinesProxy {
+export class MemberEntity implements MemberProxy {
 
   public id: number;
 
@@ -97,5 +97,34 @@ export class MachinesEntity implements MachinesProxy {
   @IsString({ message: DefaultValidationMessages.IsString })
   @IsUrl({ }, { message: DefaultValidationMessages.IsUrl })
   public website: string;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsNumber })
+  number_invoices: number;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsString })
+  ecocience: string;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsString })
+  organization: string;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsString })
+  organization_address: string;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsNumber })
+  aux_group: number;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsNumber })
+  aux_training: number;
+
+  @IsOptional()
+  @IsString({ message: DefaultValidationMessages.IsNumber })
+  aux_group_training: number;
+
 
 }

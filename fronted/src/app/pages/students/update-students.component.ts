@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DialogLoadingService } from '../../components/dialog-loading/dialog.loading.service';
-import { MachinesEntity } from '../../models/entities/machines.entity';
+import { MemberEntity } from '../../models/entities/member.entity';
 import { StudentsEntity } from '../../models/entities/students.entity';
 import { APIWrapperSingleProxy } from '../../models/proxys/api-wrapper.proxy';
-import { MachinesProxy } from '../../models/proxys/machines.proxy';
+import { MemberProxy } from '../../models/proxys/member.proxy';
 import { StudentsProxy } from '../../models/proxys/students.proxy';
 import { HttpAsyncService } from '../../services/http-async/http-async.service';
 import { JqueryHelper } from '../../utils/jquery';

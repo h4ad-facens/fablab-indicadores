@@ -7,15 +7,17 @@ import { RouterModule } from '@angular/router';
 import { DialogLoadingModule } from '../../components/dialog-loading/dialog.loading.module';
 import { DialogYesnoModule } from '../../components/dialog-yesno/dialog.yesno.module';
 import { MatPaginatorIntlBr } from '../../components/material/MatPaginatorIntlBr';
+import { MemberSourceComponent } from '../../components/member-source/member-source.component';
+import { StudentSourceComponent } from '../../components/student-source/student-source.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { HomeComponent } from '../../pages/home/home.component';
+import { ListMembersComponent } from '../../pages/list-members/list-members.component';
 import { ListStudentsComponent } from '../../pages/list-students/list-students.component';
-import { UpdateMachinesComponent } from '../../pages/machines/update-machines.component';
+import { CreateMembersComponent } from '../../pages/members/create-members.component';
+import { UpdateMembersComponent } from '../../pages/members/update-members.component';
 import { CreateStudentsComponent } from '../../pages/students/create-students.component';
 import { UpdateStudentsComponent } from '../../pages/students/update-students.component';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { ListMachinesComponent } from 'app/pages/list-machines/list-machines.component';
-import { CreateMachinesComponent } from 'app/pages/machines/create-machines.component';
 
 @NgModule({
   imports: [
@@ -40,12 +42,18 @@ import { CreateMachinesComponent } from 'app/pages/machines/create-machines.comp
   declarations: [
     HomeComponent,
     IconsComponent,
-    ListMachinesComponent,
-    CreateMachinesComponent,
-    UpdateMachinesComponent,
+    ListMembersComponent,
+    CreateMembersComponent,
+    UpdateMembersComponent,
     ListStudentsComponent,
     CreateStudentsComponent,
     UpdateStudentsComponent,
+    StudentSourceComponent,
+    MemberSourceComponent,
+  ],
+  entryComponents: [
+    StudentSourceComponent,
+    MemberSourceComponent,
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlBr, },

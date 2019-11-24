@@ -1,16 +1,26 @@
 //#region Imports
 
-import { Component, OnInit } from '@angular/core';
+import { DataSource } from '@angular/cdk/collections';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButton, MatTableDataSource } from '@angular/material';
-import * as Chartist from 'chartist';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+
+import * as XLSX from 'xlsx';
 
 import { Parser } from 'json2csv';
+import { DialogLoadingService } from '../../components/dialog-loading/dialog.loading.service';
 
 import { IndicatorsProxy } from '../../models/proxys/indicators.proxy';
+import { MemberProxy } from '../../models/proxys/member.proxy';
+import { StudentsProxy } from '../../models/proxys/students.proxy';
+import { HttpAsyncService } from '../../services/http-async/http-async.service';
 import { PaginationShared } from '../../shared/pagination/pagination.shared';
 import { JqueryHelper } from '../../utils/jquery';
 
 //#endregion
+
+type AOA = any[][];
 
 //#region Component
 
@@ -32,7 +42,10 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
   /**
    * Construtor padrão
    */
-  constructor() {
+  constructor(
+    private readonly loading: DialogLoadingService,
+    private readonly http: HttpAsyncService,
+  ) {
     super();
 
     this.displayedColumns = [
@@ -41,64 +54,6 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
   }
 
   //#endregion
-
-  startAnimationForLineChart(chart) {
-    let seq: any, delays: any, durations: any;
-    seq = 0;
-    delays = 80;
-    durations = 500;
-
-    chart.on('draw', function (data) {
-      if (data.type === 'line' || data.type === 'area') {
-        data.element.animate({
-          d: {
-            begin: 600,
-            dur: 700,
-            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-            to: data.path.clone().stringify(),
-            easing: Chartist.Svg.Easing.easeOutQuint
-          }
-        });
-      } else if (data.type === 'point') {
-        seq++;
-        data.element.animate({
-          opacity: {
-            begin: seq * delays,
-            dur: durations,
-            from: 0,
-            to: 1,
-            easing: 'ease'
-          }
-        });
-      }
-    });
-
-    seq = 0;
-  };
-
-  startAnimationForBarChart(chart) {
-    let seq2: any, delays2: any, durations2: any;
-
-    seq2 = 0;
-    delays2 = 80;
-    durations2 = 500;
-    chart.on('draw', function (data) {
-      if (data.type === 'bar') {
-        seq2++;
-        data.element.animate({
-          opacity: {
-            begin: seq2 * delays2,
-            dur: durations2,
-            from: 0,
-            to: 1,
-            easing: 'ease'
-          }
-        });
-      }
-    });
-
-    seq2 = 0;
-  };
 
   //#region LifeCycle Events
 
@@ -118,83 +73,21 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
     this.dataSource.sort = this.sort;
 
     this.isLoadingResults = false;
-
-
-    const dataDailySalesChart: any = {
-      labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-      series: [
-        [12, 17, 7, 17, 23, 18, 38, 23, 18, 38, 23, 18]
-      ]
-    };
-
-    const optionsDailySalesChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
-    };
-
-    const dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-    this.startAnimationForLineChart(dailySalesChart);
-
-
-    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-    const dataCompletedTasksChart: any = {
-      labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-      series: [
-        [230, 750, 450, 300, 280, 240, 200, 190]
-      ]
-    };
-
-    const optionsCompletedTasksChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
-    };
-
-    const completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-    this.startAnimationForLineChart(completedTasksChart);
-
-
-    /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
-
-    const datawebsiteViewsChart = {
-      labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-      series: [
-        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-      ]
-    };
-    const optionswebsiteViewsChart = {
-      axisX: {
-        showGrid: false
-      },
-      low: 0,
-      high: 1000,
-      chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
-    };
-    const responsiveOptions: any[] = [
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-    const websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
-
-    this.startAnimationForBarChart(websiteViewsChart);
   }
+
+  //#endregion
+
+  //#region Public Properties
+
+  /**
+   * A lista de dados dos alunos
+   */
+  public importedStudentData: StudentsProxy[];
+
+  /**
+   * A lista de dados dos membros
+   */
+  public importedMembersData: MemberProxy[];
 
   //#endregion
 
@@ -214,6 +107,227 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
 
     el._elementRef.nativeElement.setAttribute('href', 'data:' + data);
     el._elementRef.nativeElement.setAttribute('download', 'emails.csv');
+  }
+
+  /**
+   * Método que importa e formata os alunos de uma planilha do excel
+   *
+   * @param evt O evento lançado
+   */
+  public importStudentsToJson(evt: any): void {
+    this.importedStudentData = undefined;
+    const target: DataTransfer = <DataTransfer>(evt.target);
+
+    if (target.files.length !== 1)
+      throw new Error('Cannot use multiple files');
+
+    this.loading.open();
+
+    const reader: FileReader = new FileReader();
+
+    reader.onload = (e: any) => {
+      /* read workbook */
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, {
+        type: 'binary',
+        cellDates: true,
+        cellNF: false,
+        cellText: false
+      });
+
+      /* grab first sheet */
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      /* save data */
+      const [resultHeaders, ...result] = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1, dateNF: 'dd/mm/yyyy', }));
+
+      const getIndex = header => resultHeaders.indexOf(header);
+      const headers = [
+        getIndex('Data'),
+        getIndex('Usuário'),
+        getIndex('Email'),
+        getIndex('Telefone'),
+        getIndex('Gênero'),
+        getIndex('Idade'),
+        getIndex('Tipo'),
+        getIndex('Receita'),
+        getIndex('MÊS'),
+      ];
+      const mapped = result.map(row => {
+        return <StudentsProxy>{
+          date: row[headers[0]] && row[headers[0]].toISOString && row[headers[0]].toISOString() || '-',
+          name: row[headers[1]] || '-',
+          email: row[headers[2]] || '-',
+          phone: row[headers[3]] || '-',
+          gender: row[headers[4]] || 'Não especificado',
+          age: row[headers[5]] || '0',
+          type: row[headers[6]] || '-',
+          invoice: row[headers[7]] || '0',
+          month: row[headers[8]] || '0',
+        };
+      });
+
+      this.importedStudentData = mapped;
+
+      this.loading.close();
+
+      // @ts-ignore
+      $('#studentDataModal').modal('show');
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+
+  /**
+   * Método que importa a planilha de membros para um json
+   *
+   * @param event O evento lançado
+   */
+  public importMembersToJson(event: any): void {
+    this.importedMembersData = undefined;
+    const target: DataTransfer = <DataTransfer>(event.target);
+
+    if (target.files.length !== 1)
+      throw new Error('Cannot use multiple files');
+
+    this.loading.open();
+
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      const wb: XLSX.WorkBook = XLSX.read(e.target.result, {
+        type: 'binary',
+        cellDates: true,
+        cellNF: false,
+        cellText: false
+      });
+
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      const [resultHeaders, ...result] = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1, dateNF: 'dd/mm/yyyy', }));
+
+      console.log(resultHeaders);
+
+      const getIndex = header => resultHeaders.indexOf(header);
+      const headers = [
+        getIndex('Sobrenome'),
+        getIndex('Primeiro nome'),
+        getIndex('E-mail'),
+        getIndex('Newsletter'),
+        getIndex('Gênero'),
+        getIndex('Idade'),
+        getIndex('Endereço'),
+        getIndex('Telefone'),
+        getIndex('Website'),
+        getIndex('Emprego'),
+        getIndex('Interesses'),
+        getIndex('CAD Softwares mastered'),
+        getIndex('Grupo'),
+        getIndex('Assinatura'),
+        getIndex('Treinamentos validados'),
+        getIndex('Tags'),
+        getIndex('Número de faturas'),
+        getIndex('Fatura desativada'),
+        getIndex('Projetos'),
+        getIndex('Facebook'),
+        getIndex('Twitter'),
+        getIndex('Ecociências'),
+        getIndex('Organização'),
+        getIndex('Endereço da organização'),
+        getIndex('Aux (Grupo)'),
+        getIndex('Aux (Treinamento)'),
+        getIndex('Aux Grupo + Treinamento)'),
+      ];
+      const mapped = result.map(row => {
+        return <MemberProxy>{
+          last_name: row[headers[0]],
+          name: row[headers[1]],
+          email: row[headers[2]],
+          newsletter: row[headers[3]],
+          gender: row[headers[4]],
+          age: row[headers[5]],
+          address: row[headers[6]],
+          phone: row[headers[7]],
+          website: row[headers[8]],
+          job: row[headers[9]],
+          interest: row[headers[10]],
+          cad_software: row[headers[11]],
+          group: row[headers[12]],
+          signature: row[headers[13]],
+          validated_training: row[headers[14]],
+          tags: row[headers[15]],
+          number_invoices: row[headers[16]],
+          invoice_disabled: row[headers[17]],
+          projects: row[headers[18]],
+          facebook: row[headers[19]],
+          twitter: row[headers[20]],
+          ecocience: row[headers[21]],
+          organization: row[headers[22]],
+          organization_address: row[headers[23]],
+          aux_group: row[headers[24]],
+          aux_training: row[headers[25]],
+          aux_group_training: row[headers[26]],
+        };
+      });
+
+      this.importedMembersData = mapped;
+
+      this.loading.close();
+
+      // @ts-ignore
+      $('#membersDataModal').modal('show');
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+
+  /**
+   * Método que salva os estudantes no banco de dados
+   */
+  public async saveStudentsData(): Promise<void> {
+    // @ts-ignore
+    $('#studentDataModal').modal('hide');
+
+    this.loading.open();
+
+    let savedStudents = 0;
+
+    for (let i = 0; i < this.importedStudentData.length; i++) {
+      const { error } = await this.http.post('/Students', this.importedStudentData[i]);
+
+      if (error)
+        continue;
+
+      savedStudents++;
+    }
+
+    this.loading.close();
+
+    JqueryHelper.success(`Foram salvos ${ savedStudents } estudantes impactados.`);
+  }
+
+  /**
+   * Método que salva os membros no banco de dados
+   */
+  public async saveMembersData(): Promise<void> {
+    // @ts-ignore
+    $('#membersDataModal').modal('hide');
+
+    this.loading.open();
+
+    let savedMembers = 0;
+
+    for (let i = 0; i < this.importedMembersData.length; i++) {
+      const { error } = await this.http.post('/Members', this.importedMembersData[i]);
+
+      if (error)
+        continue;
+
+      savedMembers++;
+    }
+
+    this.loading.close();
+
+    JqueryHelper.success(`Foram salvos ${ savedMembers } membros.`);
   }
 
   //#endregion
