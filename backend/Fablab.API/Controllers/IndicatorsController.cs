@@ -44,6 +44,25 @@ namespace Fablab.API.Controllers
             
             return list;
         }
+        
+        /// <summary>
+        ///     Método que retorna todos os indicadores para um gráfico
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Graph")]
+        public async Task<ActionResult<IndicatorsGraphProxy>> GetIndicatorsGraph(int selectedYear)
+        {
+            var totalStudents = await _context.Set<Student>().CountAsync();
+            var totalMembers = await _context.Set<Member>().CountAsync();
+            var totalStudentsPerMonth = await GetClassImpacted(selectedYear);
+            
+            return new IndicatorsGraphProxy
+            {
+                TotalStudents = totalStudents,
+                TotalMembers = totalMembers,
+                TotalStudentsPerMonth = totalStudentsPerMonth
+            };
+        }
 
         /// <summary>
         ///     Método que retorna o número de alunos impactados
@@ -70,13 +89,13 @@ namespace Fablab.API.Controllers
                 March = data.TryGetValue(3, out var totalMarch) ? totalMarch : defaultValue,
                 April = data.TryGetValue(4, out var totalApril) ? totalApril : defaultValue,
                 May = data.TryGetValue(5, out var totalMay) ? totalMay : defaultValue,
-                June = data.TryGetValue(5, out var totalJune) ? totalJune : defaultValue,
-                July = data.TryGetValue(5, out var totalJuly) ? totalJuly : defaultValue,
-                August = data.TryGetValue(5, out var totalAugust) ? totalAugust : defaultValue,
-                September = data.TryGetValue(5, out var totalSeptember) ? totalSeptember : defaultValue,
-                October = data.TryGetValue(5, out var totalOctober) ? totalOctober : defaultValue,
-                November = data.TryGetValue(5, out var totalNovember) ? totalNovember : defaultValue,
-                December = data.TryGetValue(5, out var totalDecember) ? totalDecember : defaultValue,
+                June = data.TryGetValue(6, out var totalJune) ? totalJune : defaultValue,
+                July = data.TryGetValue(7, out var totalJuly) ? totalJuly : defaultValue,
+                August = data.TryGetValue(8, out var totalAugust) ? totalAugust : defaultValue,
+                September = data.TryGetValue(9, out var totalSeptember) ? totalSeptember : defaultValue,
+                October = data.TryGetValue(10, out var totalOctober) ? totalOctober : defaultValue,
+                November = data.TryGetValue(11, out var totalNovember) ? totalNovember : defaultValue,
+                December = data.TryGetValue(12, out var totalDecember) ? totalDecember : defaultValue,
             };
 
             indicator.February += indicator.January;
@@ -93,7 +112,6 @@ namespace Fablab.API.Controllers
 
             return indicator;
         }
-
 
         /// <summary>
         ///     Método que retorna a receita total de cada mes
@@ -120,13 +138,13 @@ namespace Fablab.API.Controllers
                 March = data.TryGetValue(3, out var totalMarch) ? totalMarch : defaultValue,
                 April = data.TryGetValue(4, out var totalApril) ? totalApril : defaultValue,
                 May = data.TryGetValue(5, out var totalMay) ? totalMay : defaultValue,
-                June = data.TryGetValue(5, out var totalJune) ? totalJune : defaultValue,
-                July = data.TryGetValue(5, out var totalJuly) ? totalJuly : defaultValue,
-                August = data.TryGetValue(5, out var totalAugust) ? totalAugust : defaultValue,
-                September = data.TryGetValue(5, out var totalSeptember) ? totalSeptember : defaultValue,
-                October = data.TryGetValue(5, out var totalOctober) ? totalOctober : defaultValue,
-                November = data.TryGetValue(5, out var totalNovember) ? totalNovember : defaultValue,
-                December = data.TryGetValue(5, out var totalDecember) ? totalDecember : defaultValue,
+                June = data.TryGetValue(6, out var totalJune) ? totalJune : defaultValue,
+                July = data.TryGetValue(7, out var totalJuly) ? totalJuly : defaultValue,
+                August = data.TryGetValue(8, out var totalAugust) ? totalAugust : defaultValue,
+                September = data.TryGetValue(9, out var totalSeptember) ? totalSeptember : defaultValue,
+                October = data.TryGetValue(10, out var totalOctober) ? totalOctober : defaultValue,
+                November = data.TryGetValue(11, out var totalNovember) ? totalNovember : defaultValue,
+                December = data.TryGetValue(12, out var totalDecember) ? totalDecember : defaultValue,
             };
 
             return indicator;
