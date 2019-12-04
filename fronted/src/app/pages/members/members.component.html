@@ -224,7 +224,7 @@
 
               <div class="col d-flex flex-column flex-sm-row flex-sm-grow-0 mt-5">
                 <button class="btn btn-outline-secondary" routerLink="/dashboard/members" type="button">Voltar</button>
-                <button [disabled]="!formGroup.valid"
+                <button type="submit" [disabled]="!formGroup.valid"
                         class="btn btn-admin-danger ml-sm-auto">{{ isUpdate ? 'Atualizar' : 'Criar' }}</button>
               </div>
             </form>

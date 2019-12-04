@@ -81,6 +81,7 @@ export class UpdateMembersComponent extends BaseMembersComponent {
    * Método executado ao enviar o comando de Submit no formulário
    */
   public async onSubmit(): Promise<void> {
+    console.log("Enviando...");
     const memberPayload = this.getCleanEntity(this.formGroup.value);
 
     const { error } = await this.http.put('/Members', memberPayload);

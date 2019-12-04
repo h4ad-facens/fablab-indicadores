@@ -69,10 +69,7 @@
             <input #inputFileMember (change)="importMembersToJson($event)" hidden="true" type="file" accept=".xlsx"
                    placeholder="Importar Membros" multiple="false"/>
             <a mat-stroked-button color="warn" (click)="inputFileMember.click()">Importar membros</a>
-
-            <a [disabled]="!dataSource" mat-stroked-button color="warn" #allData
-               (click)="exportDataToJson(allData, true)">Exportar todos os itens</a>
-
+            
             <div class="loading-shade-container mat-elevation-z8">
               <div class="loading-shade" *ngIf="isLoadingResults">
                 <mat-spinner></mat-spinner>
