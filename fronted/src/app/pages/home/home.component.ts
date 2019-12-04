@@ -5,11 +5,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatButton, MatTableDataSource } from '@angular/material';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import * as Chartist from 'chartist';
 
 import * as XLSX from 'xlsx';
 
 import { Parser } from 'json2csv';
 import { DialogLoadingService } from '../../components/dialog-loading/dialog.loading.service';
+import { IndicatorsGraph } from '../../models/proxys/indicators-graph.proxy';
 
 import { IndicatorsProxy } from '../../models/proxys/indicators.proxy';
 import { MemberProxy } from '../../models/proxys/member.proxy';
@@ -63,7 +65,7 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
   public async ngOnInit(): Promise<void> {
     const { success } = await this.http.get('/Indicators');
 
-    if(success) {
+    if (success) {
       this.dataSource = new MatTableDataSource<IndicatorsProxy>(success);
     } else {
       JqueryHelper.notify('add_alert', 'Ocorreu um erro ao buscar os indicadores, por favor, tente novamente!', 'danger');
@@ -73,6 +75,35 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    const { success: graphProxy = {} as IndicatorsGraph } = await this.http.get<IndicatorsGraph>('/Indicators/Graph?selectedYear=2019');
+
+    this.totalMembers = graphProxy.totalMembers || 0;
+    this.totalStudents = graphProxy.totalStudents || 0;
+
+    const month = graphProxy.totalStudentsPerMonth || {} as IndicatorsProxy;
+    const monthsValues: number[] = [month.january || 0, month.february || 0, month.march || 0, month.april || 0, month.may || 0, month.june || 0, month.july || 0, month.august || 0, month.september || 0, month.october || 0, month.november || 0, month.december || 0].map(a => Number(a));
+    const max = 20 + monthsValues.reduce((a, b) => a > b ? a : b);
+    const labels = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+
+    console.log(monthsValues);
+    const dataDailySalesChart: any = {
+      labels,
+      series: [monthsValues],
+    };
+
+    const optionsDailySalesChart: any = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: max, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
+    };
+
+    const dailySalesChart = new Chartist.Line('#numberClassImpacted', dataDailySalesChart, optionsDailySalesChart);
+
+    this.startAnimationForLineChart(dailySalesChart);
 
     this.isLoadingResults = false;
   }
@@ -90,6 +121,16 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
    * A lista de dados dos membros
    */
   public importedMembersData: MemberProxy[];
+
+  /**
+   * A quantidade de membros
+   */
+  public totalMembers: number;
+
+  /**
+   * A quantidade total de estudantes
+   */
+  public totalStudents: number;
 
   //#endregion
 
@@ -331,6 +372,64 @@ export class HomeComponent extends PaginationShared<IndicatorsProxy> implements 
 
     JqueryHelper.success(`Foram salvos ${ savedMembers } membros.`);
   }
+
+  startAnimationForLineChart(chart) {
+    let seq: any, delays: any, durations: any;
+    seq = 0;
+    delays = 80;
+    durations = 500;
+
+    chart.on('draw', function (data) {
+      if (data.type === 'line' || data.type === 'area') {
+        data.element.animate({
+          d: {
+            begin: 600,
+            dur: 700,
+            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+            to: data.path.clone().stringify(),
+            easing: Chartist.Svg.Easing.easeOutQuint
+          }
+        });
+      } else if (data.type === 'point') {
+        seq++;
+        data.element.animate({
+          opacity: {
+            begin: seq * delays,
+            dur: durations,
+            from: 0,
+            to: 1,
+            easing: 'ease'
+          }
+        });
+      }
+    });
+
+    seq = 0;
+  };
+
+  startAnimationForBarChart(chart) {
+    let seq2: any, delays2: any, durations2: any;
+
+    seq2 = 0;
+    delays2 = 80;
+    durations2 = 500;
+    chart.on('draw', function (data) {
+      if (data.type === 'bar') {
+        seq2++;
+        data.element.animate({
+          opacity: {
+            begin: seq2 * delays2,
+            dur: durations2,
+            from: 0,
+            to: 1,
+            easing: 'ease'
+          }
+        });
+      }
+    });
+
+    seq2 = 0;
+  };
 
   //#endregion
 

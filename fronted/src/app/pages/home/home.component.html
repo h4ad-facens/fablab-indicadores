@@ -1,7 +1,60 @@
 <div class="main-content">
   <div class="container-fluid">
 
-      <div class="row">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card card-chart">
+          <div class="card-header card-header-success">
+            <h2>{{ totalMembers }}</h2>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Membros</h4>
+            <p class="card-category">A quantidade total de membros.</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> atualizado a alguns segundos.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-chart">
+          <div class="card-header card-header-warning">
+            <h2>{{ totalStudents }}</h2>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Nº total de alunos</h4>
+            <p class="card-category">A quantidade de alunos impactados pelo Fab Lab.</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> atualizado a alguns segundos.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-chart">
+          <div class="card-header card-header-danger">
+            <div class="ct-chart" id="numberClassImpacted">
+
+            </div>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Nº de alunos impactados</h4>
+            <p class="card-category">A quantidade de alunos impactados por mês</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">access_time</i> atualizado a alguns segundos.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-danger">
@@ -9,13 +62,16 @@
             <p class="card-category">A seguir, você pode ver os indicadores do Fab Lab</p>
           </div>
           <div class="card-body">
-            <input #inputFileStudent (change)="importStudentsToJson($event)" hidden="true" type="file" accept=".xlsx" placeholder="Importar Alunos Impactados" multiple="false" />
+            <input #inputFileStudent (change)="importStudentsToJson($event)" hidden="true" type="file" accept=".xlsx"
+                   placeholder="Importar Alunos Impactados" multiple="false"/>
             <a mat-stroked-button color="warn" (click)="inputFileStudent.click()">Importar alunos impactados</a>
 
-            <input #inputFileMember (change)="importMembersToJson($event)" hidden="true" type="file" accept=".xlsx" placeholder="Importar Membros" multiple="false" />
+            <input #inputFileMember (change)="importMembersToJson($event)" hidden="true" type="file" accept=".xlsx"
+                   placeholder="Importar Membros" multiple="false"/>
             <a mat-stroked-button color="warn" (click)="inputFileMember.click()">Importar membros</a>
 
-            <a [disabled]="!dataSource" mat-stroked-button color="warn" #allData (click)="exportDataToJson(allData, true)">Exportar todos os itens</a>
+            <a [disabled]="!dataSource" mat-stroked-button color="warn" #allData
+               (click)="exportDataToJson(allData, true)">Exportar todos os itens</a>
 
             <div class="loading-shade-container mat-elevation-z8">
               <div class="loading-shade" *ngIf="isLoadingResults">
@@ -60,7 +116,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="june">
-                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Junho </th>
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef> Junho</th>
                   <td mat-cell *matCellDef="let element"> {{ element.june }} </td>
                 </ng-container>
 
@@ -119,7 +175,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="studentDataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel" aria-hidden="true">
+<div class="modal fade" id="studentDataModal" tabindex="-1" role="dialog" aria-labelledby="dataModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -139,7 +196,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="membersDataModal" tabindex="-1" role="dialog" aria-labelledby="memberDataModalLabel" aria-hidden="true">
+<div class="modal fade" id="membersDataModal" tabindex="-1" role="dialog" aria-labelledby="memberDataModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
