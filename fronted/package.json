@@ -40,7 +40,7 @@
     "ag-grid-angular": "^21.0.1",
     "ag-grid-community": "^21.0.1",
     "ag-grid-enterprise": "^21.0.1",
-    "ajv": "6.10.0",
+    "ajv": "6.12.3",
     "arrive": "2.4.1",
     "bootstrap": "4.3.1",
     "bootstrap-material-design": "4.1.2",
